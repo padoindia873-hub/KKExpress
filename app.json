@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "KK City Service",
-    "slug": "kk-city-service",
+    "name": "KKExpress",
+    "slug": "kkexpress",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -10,7 +10,11 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.kkcity.service"
+      "bundleIdentifier": "com.kkcity.service",
+      "infoPlist": {
+        "NSSpeechRecognitionUsageDescription": "Allow KKExpress to use speech recognition.",
+        "NSMicrophoneUsageDescription": "Allow KKExpress to access your microphone for voice input."
+      }
     },
     "android": {
       "package": "com.kkcity.service",
@@ -19,7 +23,10 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "output": "static",
@@ -38,6 +45,27 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-speech-recognition",
+        {
+          "microphonePermission": "Allow KKExpress to access your microphone for voice input.",
+          "speechRecognitionPermission": "Allow KKExpress to use speech recognition.",
+          "androidSpeechServicePackages": [
+            "com.google.android.googlequicksearchbox"
+          ]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 35,
+            "targetSdkVersion": 35,
+            "buildToolsVersion": "35.0.0",
+            "kotlinVersion": "2.0.0"  
+          }
+        }
       ]
     ],
     "experiments": {
@@ -47,8 +75,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "22c6d7f7-b099-4c30-805e-655de68fe0d3"
+        "projectId": "8efeb9b4-7b10-48f4-b68c-e5f0f0356fea"
       }
-    }
+    },
+    "owner": "padoindia873"
   }
 }

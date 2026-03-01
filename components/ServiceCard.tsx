@@ -1,18 +1,133 @@
-// components/ServiceCard.tsx
 import React from 'react';
 import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
+  Pressable,
   Platform,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
+// Helper function to pick the right icon based on service name/category
+const getServiceIcon = (name: string, category?: string): string => {
+  const lowerName = name.toLowerCase();
+  const lowerCat = (category || '').toLowerCase();
+
+  // Appliance Repair / Electronics / Home Appliances
+  if (
+    lowerName.includes('repair') ||
+    lowerName.includes('fix') ||
+    lowerName.includes('fridge') ||
+    lowerName.includes('ac') ||
+    lowerName.includes('washing') ||
+    lowerName.includes('tv') ||
+    lowerName.includes('appliance') ||
+    lowerName.includes('microwave')
+  ) {
+    return 'hammer-outline';
+  }
+
+  // Beauty & Salon
+  if (
+    lowerCat.includes('beauty') ||
+    lowerName.includes('salon') ||
+    lowerName.includes('hair') ||
+    lowerName.includes('makeup') ||
+    lowerName.includes('spa') ||
+    lowerName.includes('facial') ||
+    lowerName.includes('manicure') ||
+    lowerName.includes('pedicure')
+  ) {
+    return 'cut-outline';
+  }
+
+  // Cleaning Services
+  if (
+    lowerName.includes('clean') ||
+    lowerName.includes('housekeeping') ||
+    lowerName.includes('maid') ||
+    lowerName.includes('deep clean') ||
+    lowerName.includes('sanitization')
+  ) {
+    return 'sparkles-outline';
+  }
+
+  // Plumbing
+  if (
+    lowerName.includes('plumb') ||
+    lowerName.includes('pipe') ||
+    lowerName.includes('leak') ||
+    lowerName.includes('tap') ||
+    lowerName.includes('bathroom') ||
+    lowerName.includes('toilet')
+  ) {
+    return 'water-outline';
+  }
+
+  // Electrician / Electrical
+  if (
+    lowerName.includes('electric') ||
+    lowerName.includes('wiring') ||
+    lowerName.includes('switch') ||
+    lowerName.includes('fan') ||
+    lowerName.includes('light') ||
+    lowerName.includes('socket')
+  ) {
+    return 'flash-outline';
+  }
+
+  // Painting / Interior
+  if (
+    lowerName.includes('paint') ||
+    lowerName.includes('color') ||
+    lowerName.includes('wall') ||
+    lowerName.includes('interior') ||
+    lowerName.includes('exterior')
+  ) {
+    return 'brush-outline';
+  }
+
+  // Health / Wellness / Medical
+  if (
+    lowerName.includes('health') ||
+    lowerName.includes('doctor') ||
+    lowerName.includes('checkup') ||
+    lowerName.includes('physio') ||
+    lowerName.includes('massage')
+  ) {
+    return 'heart-outline';
+  }
+
+  // Education / Tuition / Learning
+  if (
+    lowerName.includes('education') ||
+    lowerName.includes('tuition') ||
+    lowerName.includes('class') ||
+    lowerName.includes('course') ||
+    lowerName.includes('teacher') ||
+    lowerName.includes('coaching')
+  ) {
+    return 'school-outline';
+  }
+
+  // Pest Control
+  if (lowerName.includes('pest') || lowerName.includes('cockroach') || lowerName.includes('rat')) {
+    return 'bug-outline';
+  }
+
+  // Gardening / Plant Care
+  if (lowerName.includes('garden') || lowerName.includes('plant') || lowerName.includes('lawn')) {
+    return 'leaf-outline';
+  }
+
+  // Generic / Others (fallback)
+  return 'construct-outline';
+};
 
 interface Service {
   id: string;
   name: string;
   category?: string;
-  // Add more fields later if needed (price, description, icon etc.)
 }
 
 interface ServiceCardProps {
@@ -23,39 +138,37 @@ interface ServiceCardProps {
 export default function ServiceCard({ service, onPress }: ServiceCardProps) {
   if (!service?.name) return null;
 
+  const iconName = getServiceIcon(service.name, service.category);
+
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      style={styles.card}
+    <Pressable
       onPress={onPress}
-      android_ripple={{ color: 'rgba(74, 108, 247, 0.1)', borderless: false }}
+      style={({ pressed }) => [
+        styles.card,
+        pressed && styles.cardPressed,
+      ]}
     >
       <View style={styles.iconContainer}>
-        <Text style={styles.iconText}>
-          {service.name.charAt(0).toUpperCase()}
-        </Text>
+        <Ionicons name={iconName} size={32} color="#4A6CF7" />
       </View>
 
-      <Text style={styles.title} numberOfLines={2} ellipsizeMode="tail">
+      <Text style={styles.title} numberOfLines={2}>
         {service.name}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    width: '47.5%',                // fits nicely in 2-column grid with some breathing room
+    width: '47.5%',
     backgroundColor: '#ffffff',
     borderRadius: 16,
     paddingVertical: 18,
     paddingHorizontal: 12,
     alignItems: 'center',
-
-    // No marginHorizontal here → controlled by parent FlatList columnWrapperStyle
     marginBottom: 16,
 
-    // Soft, clean shadow
     ...Platform.select({
       ios: {
         shadowColor: '#000',
@@ -69,20 +182,18 @@ const styles = StyleSheet.create({
     }),
   },
 
+  cardPressed: {
+    opacity: 0.7,
+  },
+
   iconContainer: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-    backgroundColor: '#F5F8FF',     // very light tint
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: '#F5F8FF',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
-  },
-
-  iconText: {
-    fontSize: 24,
-    fontWeight: '800',
-    color: '#4A6CF7',               // your primary color
   },
 
   title: {
@@ -91,6 +202,5 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: '#1F2937',
     textAlign: 'center',
-    letterSpacing: 0.1,
   },
 });

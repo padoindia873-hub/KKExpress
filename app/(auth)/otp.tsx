@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../context/AuthContext';
-import Colors from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
 
 export default function Otp() {
   const [otp, setOtp] = useState('');
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   error: { color: 'red', textAlign: 'center', marginBottom: 10 },
   button: {
-    backgroundColor: Colors.primary,
+    backgroundColor: COLORS.primary,
     padding: 16,
     borderRadius: 12,
     alignItems: 'center',

@@ -39,15 +39,40 @@ export const services: Service[] = [
   { id: '25', name: 'Women Legal Help', category: 'Women Support' },
   { id: '26', name: 'Women Counseling', category: 'Women Support' },
 
-  // ================= MEN =================
+    // ================= EXTRA MEN SALON SERVICES =================
+{ id: '3001', name: 'Men Salon at Home', category: 'Men Salon', description: 'Complete grooming service at home', price: 599 },
+  { id: '3002', name: "Men's Haircut", category: 'Men Salon' },
+  { id: '3003', name: 'Beard Trim & Styling', category: 'Men Salon' },
+  { id: '3004', name: "Men's Facial & Cleanup", category: 'Men Salon' },
+  { id: '3005', name: "Men's Head Massage", category: 'Men Salon' },
+  { id: '3006', name: "Men's Hair Coloring", category: 'Men Salon' },
+  { id: '3007', name: "Men's Detan Treatment", category: 'Men Salon' },
+  { id: '3008', name: "Men's Manicure & Pedicure", category: 'Men Salon' },
+  { id: '3009', name: "Premium Men's Grooming Package", category: 'Men Salon', price: 1499 },
+  { id: '3010', name: "Luxury Men Grooming Package", category: 'Men Salon', price: 1999 },
+  { id: '3011', name: "Party Look Grooming (Men)", category: 'Men Salon' },
+  { id: '3012', name: "Professional Hair Styling (Men)", category: 'Men Salon' },
+  { id: '3013', name: "Beard Coloring (Men)", category: 'Men Salon' },
+  { id: '3014', name: "Skin Care Treatment (Men)", category: 'Men Salon' },
+
+  // ================= MEN FITNESS & WELLNESS (Gym wale sab yahin – hataya nahi) =================
   { id: '27', name: 'Men Fitness Trainer', category: 'Men Fitness' },
   { id: '28', name: 'Diet Consultation', category: 'Men Fitness' },
+  { id: '143', name: 'Personal Weight Training for Men', category: 'Men Fitness' },
+  { id: '144', name: "Men's Weight Loss / Muscle Gain Consultation", category: 'Men Fitness' },
+  { id: '205', name: "Men's Yoga Trainer", category: 'Men Fitness' },
+  { id: '206', name: "Men's Health Checkup", category: 'Men Healthcare' },
+
+  // Men Wellness (Massage wale – grooming se alag rakhe)
+  { id: '134', name: 'Full Body Massage for Men', category: 'Men Wellness' },
+  { id: '135', name: 'Head & Shoulder Massage for Men', category: 'Men Wellness' },
+  { id: '136', name: 'Deep Tissue / Swedish Massage for Men', category: 'Men Wellness' },
+  { id: '145', name: 'Stress Relief Massage for Men', category: 'Men Wellness' },
 
   // ================= BABY =================
   { id: '29', name: 'Baby Caretaker', category: 'Baby Care' },
   { id: '30', name: 'Newborn Care Specialist', category: 'Baby Care' },
   { id: '31', name: 'Vaccination Support', category: 'Baby Healthcare' },
-
   // ================= ELDERLY =================
   { id: '32', name: 'Elderly Care', category: 'Elderly Care' },
   { id: '33', name: 'Home Nurse for Elderly', category: 'Elderly Care' },
@@ -193,6 +218,17 @@ export const services: Service[] = [
   { id: '144', name: 'Men\'s Weight Loss / Muscle Gain Consultation', category: 'Men Fitness' },
   { id: '145', name: 'Stress Relief Massage for Men', category: 'Men Wellness' },
   { id: '146', name: 'Premium Men\'s Grooming Package', category: 'Men Grooming' },
+
+// ================= MEN SALON / MEN GROOMING (NEW CATEGORY) =================
+  { id: '201', name: 'Men Salon at Home', category: 'Men Salon', description: 'Complete grooming package at your home', price: 599 },
+  { id: '202', name: 'Men\'s Haircut', category: 'Men Salon' },
+  { id: '203', name: 'Beard Trim & Styling', category: 'Men Salon' },
+  { id: '204', name: 'Men\'s Facial', category: 'Men Salon' },
+  { id: '205', name: 'Men\'s Cleanup & Detan', category: 'Men Salon' },
+  { id: '206', name: 'Men\'s Head Massage', category: 'Men Salon' },
+  { id: '207', name: 'Men\'s Hair Coloring', category: 'Men Salon' },
+  { id: '208', name: 'Men\'s Manicure & Pedicure', category: 'Men Salon' },
+  { id: '209', name: 'Premium Men\'s Grooming Package', category: 'Men Salon', price: 1499 },
 
   // ================= FURTHER EXPANDED SERVICES =================
   // More Beauty & Salon Additions

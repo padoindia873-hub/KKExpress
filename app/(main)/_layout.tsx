@@ -1,85 +1,108 @@
+import React from 'react';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
+import { CartProvider } from '../../context/CartContext';
 
 export default function MainLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors.primary || '#000',
-        tabBarInactiveTintColor: '#888',
-        tabBarStyle: {
-          backgroundColor: '#fff',
-          height: 65,
-          paddingBottom: 8,
-          paddingTop: 6,
-          borderTopWidth: 0,
-          elevation: 10,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '700',
-        },
-        headerShown: false,
-      }}
-    >
-      {/* HOME */}
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
-          ),
-        }}
-      />
+    <CartProvider>
+      <Tabs
+        screenOptions={{
+          tabBarActiveTintColor: COLORS.primary,
+          tabBarInactiveTintColor: '#888',
 
-      {/* BOOKINGS */}
-      <Tabs.Screen
-        name="bookings"
-        options={{
-          title: 'Bookings',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="calendar-outline" size={size} color={color} />
-          ),
-        }}
-      />
+          tabBarStyle: {
+            backgroundColor: '#fff',
+            height: 65,
+            paddingBottom: 8,
+            paddingTop: 6,
+            borderTopWidth: 0,
+            elevation: 10,
+          },
 
-      {/* BEAUTY SECTION (NEW) */}
-      <Tabs.Screen
-        name="beauty"
-        options={{
-          title: 'Beauty',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="sparkles-outline" size={size} color={color} />
-          ),
-        }}
-      />
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '700',
+          },
 
-      {/* REWARDS */}
-      <Tabs.Screen
-        name="rewards"
-        options={{
-          title: 'Rewards',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="gift-outline" size={size} color={color} />
-          ),
+          headerShown: false,
         }}
-      />
+      >
+        {/* HOME */}
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: 'Home',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home-outline" size={size} color={color} />
+            ),
+          }}
+        />
 
-      {/* PROFILE */}
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: 'Account',
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
-          ),
-        }}
-      />
+        {/* BOOKINGS */}
+        <Tabs.Screen
+          name="booking"
+          options={{
+            title: 'Bookings',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="calendar-outline" size={size} color={color} />
+            ),
+          }}
+        />
 
-      {/* HIDDEN SERVICE DETAILS PAGE */}
-      <Tabs.Screen name="service/[id]" options={{ href: null }} />
-    </Tabs>
+        {/* BEAUTY */}
+        <Tabs.Screen
+          name="beauty"
+          options={{
+            title: 'Beauty',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="sparkles-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* HEALTH */}
+        <Tabs.Screen
+          name="health"
+          options={{
+            title: 'Health',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* EDUCATION */}
+        <Tabs.Screen
+          name="education"
+          options={{
+            title: 'Education',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="school-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* ACCOUNT */}
+        <Tabs.Screen
+          name="account"
+          options={{
+            title: 'Account',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person-outline" size={size} color={color} />
+            ),
+          }}
+        />
+
+        {/* SERVICE DETAILS (Hidden) */}
+        <Tabs.Screen
+          name="service/[id]"
+          options={{
+            href: null,
+          }}
+        />
+      </Tabs>
+    </CartProvider>
   );
 }
