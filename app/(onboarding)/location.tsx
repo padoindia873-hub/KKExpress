@@ -2,7 +2,7 @@
 import { View, Text, StyleSheet, Button } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../../context/AuthContext';
-import Colors from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
 
 export default function LocationScreen() {
   const { saveLocation } = useAuth();
@@ -16,7 +16,7 @@ export default function LocationScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Where do you want your service?</Text>
-      <Button title="At my current location" onPress={handleCurrent} color={Colors.primary} />
+      <Button title="At my current location" onPress={handleCurrent} color={COLORS.primary} />
       <Text style={styles.or}>OR</Text>
       <Button title="Enter location manually" onPress={() => alert('Manual coming soon')} />
     </View>
@@ -25,6 +25,6 @@ export default function LocationScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 40, backgroundColor: '#fff' },
-  title: { fontSize: 26, fontWeight: 'bold', textAlign: 'center', marginBottom: 40, color: Colors.text },
+  title: { fontSize: 26, fontWeight: 'bold', textAlign: 'center', marginBottom: 40, color: COLORS.text },
   or: { marginVertical: 20, fontSize: 16, color: '#777' },
 });

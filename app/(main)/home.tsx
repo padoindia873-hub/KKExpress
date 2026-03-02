@@ -8,165 +8,230 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Image,
+  StatusBar,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; // ← YEH LINE ADD KAR DO
 
 import { services } from '../../constants/servicesData';
 import ServiceCard from '../../components/ServiceCard';
 import Banner from '../../components/Banner';
-import Colors from '../../constants/Colors';
+import { COLORS } from '../../constants/Colors';
 
 export default function Home() {
-
   const [search, setSearch] = useState('');
-  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
 
   const filteredServices = useMemo(() => {
+    if (!search.trim()) return services;
     return services.filter(service =>
       service.name.toLowerCase().includes(search.toLowerCase())
     );
   }, [search]);
 
-  const categories = [...new Set(filteredServices.map(item => item.category))];
+  const categories = useMemo(() => {
+    return [...new Set(filteredServices.map(item => item.category))];
+  }, [filteredServices]);
 
-  const toggleCategory = (category:any) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
+  const toggleCategory = (category: string) => {
+    setExpandedCategory(prev => (prev === category ? null : category));
   };
 
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
+  // Dummy cart count (real mein context se aayega)
+  const cartCount = 3;
 
+  return (
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar barStyle="dark-content" backgroundColor={COLORS.background} />
+
+      {/* FIXED TOP BAR */}
+      <View style={styles.topBar}>
+        {/* Left: Logo + App Name */}
+        <TouchableOpacity style={styles.logoContainer} activeOpacity={0.9}>
+          <Image
+            source={require('../../assets/images/icon.png')}
+            style={styles.logo}
+          />
+          <Text style={styles.appName}>KK EXPRESS</Text>
+        </TouchableOpacity>
+
+        {/* Right: Location + Cart */}
+        <View style={styles.rightIcons}>
+          {/* Location */}
+          <TouchableOpacity style={styles.locationBtn} activeOpacity={0.7}>
+            <Ionicons name="location-outline" size={22} color={COLORS.primary} />
+            <Text style={styles.locationText}>Patna</Text>
+            <Ionicons name="chevron-down" size={16} color="#666" style={{ marginLeft: 2 }} />
+          </TouchableOpacity>
+
+          {/* Cart */}
+          <TouchableOpacity style={styles.cartBtn} activeOpacity={0.7}>
+            <Ionicons name="cart-outline" size={26} color={COLORS.primary} />
+            {cartCount > 0 && (
+              <View style={styles.cartBadge}>
+                <Text style={styles.cartBadgeText}>{cartCount}</Text>
+              </View>
+            )}
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Main Content */}
+      <FlatList
+        data={categories}
+        keyExtractor={item => item}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           <View style={styles.headerContainer}>
+            <Text style={styles.greeting}>Fast & Reliable City Services 👋</Text>
 
-            {/* ⭐️ LOGO HEADER */}
-            <View style={styles.logoContainer}>
-              <View style={styles.logoBox}>
-                <Image
-                  source={require('../../assets/images/icon.png')}
-                  style={styles.logo}
-                />
-              </View>
-
-              <Text style={styles.appName}>KK EXPRESS</Text>
-            </View>
-
-            <Text style={styles.greeting}>Fast & Reliable Urban Services👋</Text>
-
-            {/* ⭐️ SEARCH BAR */}
+            {/* Search Bar */}
             <View style={styles.searchContainer}>
-              <Ionicons name="search-outline" size={20} color="#999" />
+              <Ionicons name="search-outline" size={20} color="#999" /> {/* ← yahan use ho raha hai */}
               <TextInput
                 style={styles.searchInput}
                 placeholder="Search services..."
                 placeholderTextColor="#aaa"
                 value={search}
                 onChangeText={setSearch}
+                autoCapitalize="none"
               />
             </View>
 
-            {/* ⭐️ BANNER */}
+            {/* Banner */}
             <Banner />
 
             <Text style={styles.sectionTitle}>All Categories</Text>
-
           </View>
         }
-
-        data={categories}
-        keyExtractor={(item) => item}
         renderItem={({ item: category }) => {
-
           const categoryServices = filteredServices.filter(
             service => service.category === category
           );
 
           const isExpanded = expandedCategory === category;
-
           const servicesToShow = isExpanded
             ? categoryServices
             : categoryServices.slice(0, 4);
 
           return (
             <View style={styles.categoryContainer}>
-
               <View style={styles.categoryHeader}>
                 <Text style={styles.categoryTitle}>{category}</Text>
 
-                <TouchableOpacity onPress={() => toggleCategory(category)}>
-                  <Text style={styles.viewAll}>
-                    {isExpanded ? 'Show Less' : 'View All'}
-                  </Text>
-                </TouchableOpacity>
+                {categoryServices.length > 4 && (
+                  <TouchableOpacity onPress={() => toggleCategory(category)}>
+                    <Text style={styles.viewAll}>
+                      {isExpanded ? 'Show Less' : 'View All'}
+                    </Text>
+                  </TouchableOpacity>
+                )}
               </View>
 
               <FlatList
                 data={servicesToShow}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                  <ServiceCard service={item} />
-                )}
+                keyExtractor={item => item.id}
+                renderItem={({ item }) => <ServiceCard service={item} />}
                 numColumns={2}
                 scrollEnabled={false}
                 columnWrapperStyle={styles.row}
               />
-
             </View>
           );
         }}
-
-        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingBottom: 40 }}
       />
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-
-  container: {
+  safeArea: {
     flex: 1,
-    backgroundColor: '#F5F7FA',
+    backgroundColor: COLORS.background,
   },
 
-  headerContainer: {
-    paddingHorizontal: 20,
-    paddingTop: 10,
+  // TOP BAR
+  topBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: StatusBar.currentHeight ? StatusBar.currentHeight + 8 : 44,
+    paddingBottom: 12,
+    backgroundColor: COLORS.card,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.border,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    zIndex: 1000,
   },
 
-  /* ⭐️ LOGO */
   logoContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
-  },
-
-  logoBox: {
-    width: 52,
-    height: 52,
-    borderRadius: 26,
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 6,
   },
 
   logo: {
-    width: 34,
-    height: 34,
+    width: 38,
+    height: 38,
     resizeMode: 'contain',
+    marginRight: 8,
   },
 
   appName: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '900',
-    color: Colors.primary,
-    marginLeft: 14,
+    color: COLORS.primary,
+  },
+
+  rightIcons: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 20,
+  },
+
+  locationBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  locationText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: COLORS.text,
+    marginLeft: 4,
+  },
+
+  cartBtn: {
+    position: 'relative',
+  },
+
+  cartBadge: {
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    backgroundColor: COLORS.danger,
+    borderRadius: 10,
+    minWidth: 18,
+    height: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 5,
+  },
+
+  cartBadgeText: {
+    color: '#fff',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+
+  // Rest unchanged
+  headerContainer: {
+    paddingHorizontal: 20,
+    paddingTop: 10,
   },
 
   greeting: {
@@ -176,7 +241,6 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
 
-  /* ⭐️ SEARCH */
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -195,7 +259,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  /* ⭐️ CATEGORY */
   sectionTitle: {
     fontSize: 24,
     fontWeight: '800',
@@ -210,6 +273,7 @@ const styles = StyleSheet.create({
   categoryHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 14,
   },
 
@@ -221,12 +285,11 @@ const styles = StyleSheet.create({
   viewAll: {
     fontSize: 15,
     fontWeight: '700',
-    color: Colors.primary,
+    color: COLORS.primary,
   },
 
   row: {
     justifyContent: 'space-between',
     marginBottom: 16,
   },
-
 });

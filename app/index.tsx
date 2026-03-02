@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useAuth } from '../context/AuthContext';
-import Colors from '../constants/Colors';
+import { COLORS } from '../constants/Colors';
 
 export default function Index() {
   const { isLoggedIn, location } = useAuth();
@@ -12,7 +12,7 @@ export default function Index() {
   useEffect(() => {
     console.log('[Splash] Checking auth:', { isLoggedIn, hasLocation: !!location });
 
-    // Thoda delay taaki state update reflect ho
+   
     const timer = setTimeout(() => {
       if (isLoggedIn && location) {
         console.log('[Splash] → Redirecting to HOME');
@@ -32,7 +32,7 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>KK City Service</Text>
-      <ActivityIndicator size="large" color={Colors.primary} />
+      <ActivityIndicator size="large" color={COLORS.primary} />
     </View>
   );
 }
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.primary,
+    backgroundColor: COLORS.background,
   },
   title: {
     fontSize: 32,

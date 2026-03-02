@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { services } from '../../../constants/servicesData';
 import CustomButton from '../../../components/CustomButton';
-import Colors from '../../../constants/Colors';
+import { COLORS } from '../../../constants/Colors';
 
 export default function ServiceDetail() {
   const { id } = useLocalSearchParams();
@@ -25,22 +25,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: Colors.background,
+    backgroundColor: COLORS.background,
   },
   title: {
     fontFamily: 'Roboto-Bold',
     fontSize: 24,
-    color: Colors.text,
+    color: COLORS.text,
   },
   desc: {
     fontFamily: 'Roboto-Regular',
     fontSize: 16,
     marginVertical: 10,
-    color: Colors.lightText,
+    color: COLORS.textSecondary,
   },
   price: {
     fontFamily: 'Roboto-Medium',
     fontSize: 18,
-    color: Colors.primary,
+    color: COLORS.primary,
   },
 });
