@@ -1,19 +1,19 @@
 {
   "expo": {
-    "name": "KKExpress",
-    "slug": "kkexpress",
+    "name": "KK Express",
+    "slug": "kk express",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "kkexpress",
+    "scheme": "kk express",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.kkcity.service",
       "infoPlist": {
-        "NSSpeechRecognitionUsageDescription": "Allow $(PRODUCT_NAME) to use speech recognition.",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use the microphone."
+        "NSSpeechRecognitionUsageDescription": "Allow KKExpress to use speech recognition.",
+        "NSMicrophoneUsageDescription": "Allow KKExpress to access your microphone for voice input."
       }
     },
     "android": {
@@ -24,9 +24,7 @@
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "output": "static",
@@ -75,9 +73,9 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": "58b7aa03-ff33-435d-b03f-c2592afacddc"
+        "projectId": "8efeb9b4-7b10-48f4-b68c-e5f0f0356fea"
       }
     },
-    "owner": "resham8409"
+    "owner": "padoindia873"
   }
 }

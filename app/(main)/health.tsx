@@ -16,7 +16,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../constants/Colors';
 
-// Dummy data 
+// Dummy data (real mein API se replace kar dena)
 const quickActions = [
   { id: '1', title: 'Doctor Consult', icon: 'medkit-outline', color: '#4CAF50' },
   { id: '2', title: 'Lab Tests', icon: 'flask-outline', color: '#2196F3' },

@@ -7,12 +7,12 @@ import {
   TouchableOpacity,
   RefreshControl,
   Platform,
-  SafeAreaView, // 
+  SafeAreaView, // ← YEH LINE ADD KI
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { COLORS } from '../../constants/Colors';
 
-// Dummy data 
+// Dummy data (real mein API se replace kar dena)
 const dummyBookings = [
   {
     id: '1',
